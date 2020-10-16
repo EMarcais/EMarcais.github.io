@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx
+    container_name: Demo_nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./site:/var/www/php
+      - ./lemp/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+    networks:
+      - LEMP
+  php:
+    image: bitnami/php-fpm:latest
+      container_name: php-fpm
+      working_dir: /var/www/php
+      volumes:
+        - ./site:/var/www/php
